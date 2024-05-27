@@ -1,0 +1,134 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '3'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+def flutterMinSDKVersion = localProperties.getProperty('flutter.minSdkVersion')
+if (flutterMinSDKVersion == null) {
+    flutterMinSDKVersion = '26'
+}
+
+def flutterCompileSDKVersion = localProperties.getProperty('flutter.compileSdkVersion')
+
+if (flutterCompileSDKVersion == null) {
+    flutterCompileSDKVersion = 34
+}
+
+def flutterTargetSDKVersion = localProperties.getProperty('flutter.targetSdkVersion')
+if (flutterTargetSDKVersion == null) {
+    flutterTargetSDKVersion = 34
+}
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+android {
+    namespace "com.example.mgb_teamup"
+    compileSdkVersion flutterCompileSDKVersion //flutter.compileSdkVersion
+    ndkVersion flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    
+    defaultConfig {
+        
+        applicationId "com.vitasoft.Mygallerybook_pro"
+
+        minSdkVersion flutterMinSDKVersion
+        targetSdkVersion flutterTargetSDKVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+
+        multiDexEnabled true
+
+         //This is for generating fat apk for all abi's
+        ndk {
+           // abiFilters "armeabi-v7a", "x86"
+           // abiFilters "armeabi-v7a", "arm64-v8a"
+           abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
+        }
+    }
+
+    //For Releasing apk...
+    signingConfigs {
+        release {
+             keyAlias keystoreProperties['keyAlias']
+             keyPassword keystoreProperties['keyPassword']
+             storeFile file(keystoreProperties['storeFile'])
+             storePassword keystoreProperties['storePassword']
+        }
+    }
+
+    buildTypes {
+        release {
+
+            signingConfig signingConfigs.release
+
+            // Enables code shrinking, obfuscation, and optimization for only
+                // your project's release build type.
+            minifyEnabled true   
+            // useProguard true // no need it, because already minifyEnabled. 
+
+            // Enables resource shrinking, which is performed by the
+            // Android Gradle plugin.        
+            shrinkResources true
+
+            zipAlignEnabled true
+
+            
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            //Other parameters
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+            pseudoLocalesEnabled false
+            zipAlignEnabled true
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {}

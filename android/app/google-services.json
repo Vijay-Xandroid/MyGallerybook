@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1013002101378",
+    "firebase_url": "https://mygallerybookapp.firebaseio.com",
+    "project_id": "mygallerybookapp",
+    "storage_bucket": "mygallerybookapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013002101378:android:f01336e56e1c57c2238a9b",
+        "android_client_info": {
+          "package_name": "com.vitasoft.Mygallerybook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1013002101378-u635vt51sss96e89556a75figsee8h8g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQYnNgbrHg1mO6dWPYPlidTh-mOBUI5gU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1013002101378-u635vt51sss96e89556a75figsee8h8g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
